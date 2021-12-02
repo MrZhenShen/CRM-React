@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Header.scss';
 import { NavLink } from 'react-router-dom'
 
@@ -12,17 +11,13 @@ const Header = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink to='/landing' className="navbar-link ms-4" activeClassName="active">Home</NavLink>
-          <NavLink to='/busket' className="navbar-link ms-4" activeClassName="active">Busket</NavLink>
-          <NavLink to='/admin-panel' className="navbar-link ms-4" activeClassName="active">Admin Panel</NavLink>
+          <NavLink to='/landing' className="navbar-link ms-4">Home</NavLink>
+          <NavLink to='/busket' className="navbar-link ms-4" >Busket</NavLink>
+          <NavLink to='/admin-panel' className="navbar-link ms-4">Admin Panel</NavLink>
         </div>
       </div>
     </div>
   </nav>
 );
-
-Header.propTypes = {};
-
-Header.defaultProps = {};
 
 export default Header;
