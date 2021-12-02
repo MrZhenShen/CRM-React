@@ -1,44 +1,68 @@
 import React, { useEffect, useState } from 'react';
 
-import PropTypes from 'prop-types';
 import './ProjectList.scss';
 
 import ProjectItem from '../../components/ProjectItem/ProjectItem'
 
-const ProjectList = () => {
+class ProjectList extends React.Component {
 
-  const apiLink = 'http://localhost:8000/api'
+  constructor(props) {
+    super(props);
 
-  const [projects, setProjects] = useState([])
+    this.state = {
+      projects: [],
+      apiLink: 'http://localhost:8000/api'
+    }
+  }
 
-  useEffect(() => {
-    fetch(`${apiLink}/projects/`)
+  postData(url = '') {
+    const response = fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token f32ccbd308386ffb816782ffe852f5a982b35268'
+      }
+    })
+    return response
+  }
+
+
+  componentDidMount() {
+    // this.postData(`${this.state.apiLink}/projects/`)
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+
+    fetch(`${this.state.apiLink}/projects/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token f32ccbd308386ffb816782ffe852f5a982b35268'
+      }
+    })
       .then((response) => {
         return response.json()
       })
       .then((data) => {
-        setProjects(data)
+        this.setState({ projects: data })
       })
-  }, [projects])
+  }
 
-  return (
+  render() {
+    return (
+      <div className="ProjectList">
+        <div className="container">
+          {
+            this.state.projects.map((el) =>
+              <ProjectItem key={el.id} project={el} />
+            )
+          }
 
-    <div className="ProjectList">
-      <div className="container">
-        {
-          projects.map((el) =>
-            <ProjectItem project={el} />
-          )
-        }
-
+        </div>
       </div>
-    </div>
 
-  );
+    );
+  }
 }
 
-ProjectList.propTypes = {};
-
-ProjectList.defaultProps = {};
 
 export default ProjectList;
