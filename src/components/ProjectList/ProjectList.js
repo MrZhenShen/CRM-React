@@ -11,32 +11,18 @@ class ProjectList extends React.Component {
 
     this.state = {
       projects: [],
-      apiLink: 'http://localhost:8000/api'
+      apiLink: 'http://localhost:8000/api',
+      token: JSON.parse(localStorage.getItem('token')),
     }
   }
 
-  postData(url = '') {
-    const response = fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Token f32ccbd308386ffb816782ffe852f5a982b35268'
-      }
-    })
-    return response
-  }
-
-
   componentDidMount() {
-    // this.postData(`${this.state.apiLink}/projects/`)
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
 
     fetch(`${this.state.apiLink}/projects/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Token f32ccbd308386ffb816782ffe852f5a982b35268'
+        'Authorization': 'Token '+this.state.token.token
       }
     })
       .then((response) => {
