@@ -7,6 +7,7 @@ import Footer from './components/Footer/Footer'
 import Landing from './pages/Landing/Landing'
 import AdminPanel from './pages/AdminPanel/AdminPanel'
 import Busket from './pages/Busket/Busket'
+import LoginPage from './pages/LoginPage/LoginPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/landing" element={<Landing />} />
             <Route path="/busket" element={<Busket />} />
             <Route path="/admin-panel" element={<AdminPanel />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </div>
         {/* <Footer /> */}
