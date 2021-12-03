@@ -11,42 +11,54 @@ class ProjectList extends React.Component {
 
     this.state = {
       projects: [],
-      apiLink: 'http://localhost:8000/api',
-      token: JSON.parse(localStorage.getItem('token')),
+      apiLink: 'http://localhost:8000/api'
     }
   }
 
   componentDidMount() {
-
-    fetch(`${this.state.apiLink}/projects/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Token '+this.state.token.token
-      }
-    })
+    if(localStorage.getItem('token') !== "{}") {
+      
+      fetch(`${this.state.apiLink}/projects/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + JSON.parse(localStorage.getItem('token')).token
+        }
+      })
       .then((response) => {
         return response.json()
       })
       .then((data) => {
         this.setState({ projects: data })
       })
+    }
   }
 
+
   render() {
-    return (
-      <div className="ProjectList">
-        <div className="container">
-          {
-            this.state.projects.map((el) =>
-              <ProjectItem key={el.id} project={el} />
-            )
-          }
-
+    if (localStorage.getItem('token') !== "{}") {
+      return (
+        <div className="ProjectList">
+          <div className="container">
+            {
+              this.state.projects.map((el) =>
+                <ProjectItem key={el.id} project={el} />
+              )
+            }
+          </div>
         </div>
-      </div>
-
-    );
+      )
+    } else {
+      return (
+        <div className="ProjectList" >
+          <div className="container">
+            <div className="row">
+              <h3>Here is not projects</h3>
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 }
 
