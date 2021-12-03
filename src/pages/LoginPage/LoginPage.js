@@ -39,9 +39,11 @@ class LoginPage extends React.Component {
         return response.json()
       })
       .then((data) => {
-        // this.setState({ projects: data })
-        console.log(data)
         localStorage.setItem("token", JSON.stringify(data))
+        this.setState({
+          email: "",
+          password: ""
+        })
       })
   }
 
@@ -52,7 +54,7 @@ class LoginPage extends React.Component {
         <Form className="row">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" onChange={this.handleLoginChange.bind(this)} />
+            <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleLoginChange.bind(this)} />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -60,7 +62,7 @@ class LoginPage extends React.Component {
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange.bind(this)} />
+            <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
