@@ -39,6 +39,7 @@ class LoginPage extends React.Component {
         return response.json()
       })
       .then((data) => {
+        alert(JSON.stringify(data))
         localStorage.setItem("token", JSON.stringify(data))
         this.setState({
           email: "",
