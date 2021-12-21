@@ -1,5 +1,7 @@
 import React from 'react';
 import './LoginPage.scss';
+import {connect} from 'react-redux'
+
 import { Form, Button } from 'react-bootstrap';
 
 import PageTitle from '../../components/PageTitle/PageTitle'
@@ -39,7 +41,7 @@ class LoginPage extends React.Component {
         return response.json()
       })
       .then((data) => {
-        alert(JSON.stringify(data))
+        this.props.dispatch({type: 'LOG_IN'})
         localStorage.setItem("token", JSON.stringify(data))
         this.setState({
           email: "",
@@ -77,5 +79,11 @@ class LoginPage extends React.Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch
+  }
+}
 
-export default LoginPage;
+
+export default connect(mapDispatchToProps)(LoginPage);

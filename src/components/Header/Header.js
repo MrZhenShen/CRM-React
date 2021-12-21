@@ -1,21 +1,20 @@
 import React from 'react';
 import './Header.scss';
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 
 class Header extends React.Component {
 
-
   constructor(props) {
     super(props);
-
-    
   }
 
   handleSignOut() {
+    this.props.dispatch({ type: 'LOG_OUT' })
     localStorage.setItem("token", JSON.stringify({}))
-    alert("Sign out") 
   }
-  
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,8 +28,12 @@ class Header extends React.Component {
               <NavLink to='/landing' className="navbar-link ms-4">Home</NavLink>
               <NavLink to='/busket' className="navbar-link ms-4" >Busket</NavLink>
               <NavLink to='/admin-panel' className="navbar-link ms-4">Admin Panel</NavLink>
-              <NavLink to='/login' className="navbar-link ms-4">Login</NavLink>
-              <a className="navbar-link ms-4" onClick={this.handleSignOut.bind(this)}>Sign out</a>
+              <NavLink to='/client-workspace' className="navbar-link ms-4">Client workspace</NavLink>
+              {
+                !this.props.isAuthenticated 
+                ? <NavLink to='/login' className="navbar-link ms-4">Log In</NavLink>
+                : <a className="navbar-link ms-4" onClick={() => this.props.dispatch({ type: 'LOG_OUT' })}>Sign out</a>
+              }
             </div>
           </div>
         </div>
@@ -39,4 +42,16 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.isAuthenticated
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
