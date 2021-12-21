@@ -9,7 +9,7 @@ import ProjectList from '../../components/ProjectList/ProjectList'
 const AdminPanel = () => {
 
   return (
-    <div className="AdminPanel">
+    <div className="AdminPanel container">
       <PageTitle title={"Admin panel"} />
       <ProjectList />
     </div>
