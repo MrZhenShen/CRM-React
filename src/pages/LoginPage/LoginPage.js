@@ -18,14 +18,6 @@ class LoginPage extends React.Component {
     }
   }
 
-
-  handleLoginChange(event) {
-    this.setState({ email: event.target.value })
-  }
-  handlePasswordChange(event) {
-    this.setState({ password: event.target.value })
-  }
-
   handleSubmit() {
     fetch(`${this.state.apiLink}/login/`, {
       method: 'POST',
@@ -57,7 +49,7 @@ class LoginPage extends React.Component {
         <Form className="row">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleLoginChange.bind(this)} />
+            <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -65,7 +57,7 @@ class LoginPage extends React.Component {
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} />
+            <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />

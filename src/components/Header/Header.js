@@ -32,7 +32,7 @@ class Header extends React.Component {
               {
                 !this.props.isAuthenticated 
                 ? <NavLink to='/login' className="navbar-link ms-4">Log In</NavLink>
-                : <a className="navbar-link ms-4" onClick={() => this.props.dispatch({ type: 'LOG_OUT' })}>Sign out</a>
+                : <NavLink to='/landing' className="navbar-link ms-4" onClick={() => this.props.dispatch({ type: 'LOG_OUT' })}>Sign out</NavLink>
               }
             </div>
           </div>
