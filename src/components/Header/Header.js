@@ -30,7 +30,6 @@ class Header extends React.Component {
               <NavLink to='/busket' className="navbar-link ms-4" >Busket</NavLink>
               <NavLink to='/admin-panel' className="navbar-link ms-4">Admin Panel</NavLink>
               <NavLink to='/login' className="navbar-link ms-4">Login</NavLink>
-              <NavLink to='/regist' className="navbar-link ms-4">Register</NavLink>
               <a className="navbar-link ms-4" onClick={this.handleSignOut.bind(this)}>Sign out</a>
             </div>
           </div>

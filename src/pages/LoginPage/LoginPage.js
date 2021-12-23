@@ -17,10 +17,6 @@ class LoginPage extends React.Component {
   }
 
 
-  componentDidMount() {
-    localStorage.setItem("token", JSON.stringify({}))
-  }
-
   handleLoginChange(event) {
     this.setState({ email: event.target.value })
   }
@@ -73,8 +69,7 @@ class LoginPage extends React.Component {
           </Form.Group>
           <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
             Submit
-          </Button>
-          
+          </Button> 
         </Form>
       </div>
     )
