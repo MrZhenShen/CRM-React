@@ -64,7 +64,7 @@ class LoginPage extends React.Component {
           </Form.Group>
           <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
             Submit
-          </Button>
+          </Button> 
         </Form>
       </div>
     )
