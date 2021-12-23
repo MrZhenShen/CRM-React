@@ -12,7 +12,9 @@ class ClientWorkspacePage extends React.Component {
     this.state = {
       client: {},
       projects: [],
-      apiLink: 'http://127.0.0.1:8000/api'
+      apiLink: 'http://127.0.0.1:8000/api',
+      token: JSON.parse(localStorage.getItem('token')).token,
+      clientId: JSON.parse(localStorage.getItem('token')).id
     }
   }
 
@@ -20,11 +22,11 @@ class ClientWorkspacePage extends React.Component {
 
     if (localStorage.getItem('token') !== "{}" && JSON.parse(localStorage.getItem('token')).is_staff === false) {
 
-      fetch("http://127.0.0.1:8000/api/clients/4/", {
+      fetch(`${this.state.apiLink}/clients/${this.state.clientId}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token ' + JSON.parse(localStorage.getItem('token')).token
+          'Authorization': 'Token ' + this.state.token
         }
       })
         .then((response) => {
@@ -34,11 +36,11 @@ class ClientWorkspacePage extends React.Component {
           this.setState({ client: data })
         })
 
-      fetch("http://127.0.0.1:8000/api/client-projects/4/", {
+      fetch(`${this.state.apiLink}/client-projects/${this.state.clientId}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token ' + JSON.parse(localStorage.getItem('token')).token
+          'Authorization': 'Token ' + this.state.token
         }
       })
         .then((response) => {

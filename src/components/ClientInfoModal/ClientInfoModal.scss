@@ -1,1 +1,11 @@
 .ClientInfoModal {}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  div {
+    padding: 0px 10px;
+    width: 100%;
+  }
+}

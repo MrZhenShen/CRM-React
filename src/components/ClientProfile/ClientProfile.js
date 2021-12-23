@@ -25,7 +25,7 @@ class ClientProfile extends React.Component {
           <p>{this.props.client.email}</p>
           <p>{this.props.client.telephone_number}</p>
           <Button onClick={() => this.setState({modalShow: true})}>Edit profile</Button>
-          <ClientInfoModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}/>
+          <ClientInfoModal show={this.state.modalShow} client={this.props.client} onHide={() => this.setState({modalShow: false})}/>
         </div>
       </Col>
     )
