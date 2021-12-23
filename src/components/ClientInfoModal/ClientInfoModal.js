@@ -10,6 +10,8 @@ class ClientInfoModal extends React.Component {
 
     this.state = {
       hasChange: false,
+      apiLink: 'http://127.0.0.1:8000/api',
+      token: JSON.parse(localStorage.getItem('token')).token,
       first_name:       "",
       last_name:        "",
       email:            "",
@@ -22,7 +24,8 @@ class ClientInfoModal extends React.Component {
       city:             ""
     }
   }
-  componentDidMount() {
+
+  componentWillReceiveProps() {
     this.setState({
       first_name:       this.props.client.first_name,
       last_name:        this.props.client.last_name,
@@ -40,32 +43,37 @@ class ClientInfoModal extends React.Component {
   handleHide() {
     this.props.onHide()
   }
+
   handleSave() {
-    // this.props.onHide()
-  }
-
-
-  handleChanges() {
-
-    if (this.props.client.first_name      !== this.state.first_name 
-    || this.props.client.last_name        !== this.state.last_name 
-    || this.props.client.email            !== this.state.email 
-    || this.props.client.telephone_number !== this.state.telephone_number 
-    || this.props.client.role             !== this.state.role 
-    || this.props.client.company_name     !== this.state.company_name 
-    || this.props.client.company_link     !== this.state.company_link 
-    || this.props.client.industry         !== this.state.industry 
-    || this.props.client.country          !== this.state.country 
-    || this.props.client.city             !== this.state.city) {
-      this.setState({hasChange: true})
-    } else {
-      this.setState({hasChange: false})
-    }
-    console.log(this.state.hasChange)
+    fetch(`${this.state.apiLink}/clients/${this.props.client.id}/`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        first_name:       this.state.first_name,
+        last_name:        this.state.last_name,
+        email:            this.state.email,
+        username:         this.state.email.split("@")[0],
+        telephone_number: this.state.telephone_number,
+        role:             this.state.role,
+        company_name:     this.state.company_name,
+        company_link:     this.state.company_link,
+        industry:         this.state.industry,
+        country:          this.state.country,
+        city:             this.state.city
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token
+      }
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data.first_name)
+      })
   }
 
   render() {
-    this.handleChanges.bind(this)
     return (
       <Modal
         show={this.props.show}
@@ -97,7 +105,7 @@ class ClientInfoModal extends React.Component {
                 <Form.Control type="tel" placeholder="+38(093) 111-11-11" value={this.state.telephone_number} onChange={(e) => this.setState({ telephone_number: e.target.value})} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formCompany">
-                <Form.Label>Role in company</Form.Label>
+                <Form.Label>*Role in company</Form.Label>
                 <Form.Control type="text" placeholder="Business analyst" value={this.state.role} onChange={(e) => this.setState({ role: e.target.value})} />
               </Form.Group>
             </div>
@@ -108,7 +116,7 @@ class ClientInfoModal extends React.Component {
                 <Form.Control type="text" placeholder="Company name" value={this.state.company_name} onChange={(e) => this.setState({ company_name: e.target.value})} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formCompanyWebsite">
-                <Form.Label>Company Website</Form.Label>
+                <Form.Label>*Company Website</Form.Label>
                 <Form.Control type="text" placeholder="Company website" value={this.state.company_link} onChange={(e) => this.setState({ company_link: e.target.value})} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formIndustry">
@@ -116,30 +124,17 @@ class ClientInfoModal extends React.Component {
                 <Form.Control type="text" placeholder="*Education" value={this.state.industry} onChange={(e) => this.setState({ industry: e.target.value})} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formCountry">
-                <Form.Label>Country</Form.Label>
+                <Form.Label>*Country</Form.Label>
                 <Form.Control type="text" placeholder="Country" value={this.state.country} onChange={(e) => this.setState({ country: e.target.value})} />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formCity">
-                <Form.Label>City</Form.Label>
+                <Form.Label>*City</Form.Label>
                 <Form.Control type="text" placeholder="City" value={this.state.city} onChange={(e) => this.setState({ city: e.target.value})} />
               </Form.Group>
             </div>
 
           </Form>
-          {/* 
-            'first_name',
-            'last_name',
-            'email',
-            'telephone_number',
-            'role',
-
-            'company_name',
-            'company_link',
-            'industry',
-            'country',
-            'city'
-             */}
 
         </Modal.Body>
 
