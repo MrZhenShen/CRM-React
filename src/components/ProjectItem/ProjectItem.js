@@ -19,7 +19,7 @@ const ProjectItem = (props) => {
     <div className="ProjectItem col-12" key={el.id}>
 
       <div className="project-info">
-        <img src={el.Good.example_image} width="100" alt="Example image" />
+        <img src={el.Good.example_image} width="100" alt="" />
         <div className="card-body">
           <h5 className="card-title">{el.Good.name}</h5>
           <p className="card-text">{el.Good.description}</p>

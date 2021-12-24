@@ -28,6 +28,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         token: action.payload.token
       }
+    default:
   }
   return state
 }

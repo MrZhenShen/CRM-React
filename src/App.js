@@ -27,7 +27,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </div>
   );

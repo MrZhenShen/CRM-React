@@ -1,6 +1,4 @@
 import React from 'react';
-
-import PropTypes from 'prop-types';
 import './AdminPanel.scss';
 
 import PageTitle from '../../components/PageTitle/PageTitle'
@@ -15,9 +13,5 @@ const AdminPanel = () => {
     </div>
   )
 };
-
-AdminPanel.propTypes = {};
-
-AdminPanel.defaultProps = {};
 
 export default AdminPanel;

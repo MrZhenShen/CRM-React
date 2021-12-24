@@ -6,10 +6,6 @@ import { connect } from 'react-redux'
 
 class Header extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   handleSignOut() {
     this.props.dispatch({ type: 'LOG_OUT' })
     localStorage.setItem("token", JSON.stringify({}))
@@ -19,7 +15,7 @@ class Header extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand">Yellow Minders</a>
+          <h4 className="navbar-brand">Yellow Minders</h4>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
