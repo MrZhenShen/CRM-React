@@ -9,6 +9,7 @@ import AdminPanel from './pages/AdminPanel/AdminPanel'
 import Busket from './pages/Busket/Busket'
 import LoginPage from './pages/LoginPage/LoginPage'
 import ClientWorkspacePage from './pages/ClientWorkspacePage/ClientWorkspacePage'
+import RegisterPage from './pages/RegisterPage/RegisterPage'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/admin-panel" element={<AdminPanel />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/client-workspace" element={<ClientWorkspacePage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </div>
         {/* <Footer /> */}

@@ -30,10 +30,11 @@ class Header extends React.Component {
               <NavLink to='/admin-panel' className="navbar-link ms-4">Admin Panel</NavLink>
               <NavLink to='/client-workspace' className="navbar-link ms-4">Client workspace</NavLink>
               {
-                !this.props.isAuthenticated 
-                ? <NavLink to='/login' className="navbar-link ms-4">Log In</NavLink>
-                : <NavLink to='/landing' className="navbar-link ms-4" onClick={() => this.props.dispatch({ type: 'LOG_OUT' })}>Sign out</NavLink>
+                !this.props.isAuthenticated
+                  ? <NavLink to='/login' className="navbar-link ms-4">Log In</NavLink>
+                  : <NavLink to='/landing' className="navbar-link ms-4" onClick={() => this.props.dispatch({ type: 'LOG_OUT' })}>Sign out</NavLink>
               }
+              <NavLink to='/register' className="navbar-link ms-4">Register</NavLink>
             </div>
           </div>
         </div>
