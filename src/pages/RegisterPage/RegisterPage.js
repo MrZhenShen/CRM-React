@@ -1,8 +1,7 @@
 import React from 'react';
 import './RegisterPage.scss';
 import PageTitle from '../../components/PageTitle/PageTitle'
-import { Form, Button } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row'
+import { Form, Button, Row } from 'react-bootstrap'
 
 class RegisterPage extends React.Component {
 
@@ -10,55 +9,33 @@ class RegisterPage extends React.Component {
     super(props)
 
     this.state = {
+      apiLink: 'http://localhost:8000/api',
+
       first_name: '',
-      surname: '',
-      phone_num: '',
-      companny: '',
-      industry: '',
+      last_name: '',
       email: '',
-      password: ''
-      //apiLink: 'http://localhost:8000/api'
+      telephone_number: '',
+      password: '',
+      company_name: '',
+      industry: '',
+      confirm_password: ''
     }
   }
 
-  componentDidMount() {
-    localStorage.setItem("token", JSON.stringify({}))
-  }
-
-  handleFirstNameChange(event) {
-    this.setState({ first_name: event.target.value })
-  }
-  handleSurnameChange(event) {
-    this.setState({ surname: event.target.value })
-  }
-  handleLoginChange(event) {
-    this.setState({ email: event.target.value })
-  }
-  handlePasswordChange(event) {
-    this.setState({ password: event.target.value })
-  }
-  handlePhoneNumberChange(event) {
-    this.setState({ phone_num: event.target.value })
-  }
-  handleCompanyChange(event) {
-    this.setState({ companny: event.target.value })
-  }
-  handleIndustryChange(event) {
-    this.setState({ industry: event.target.value })
-  }
-
   handleSubmit() {
-    fetch(`${this.state.apiLink}/regist/`, {
+    fetch(`${this.state.apiLink}/register/`, {
       method: 'POST',
       body: JSON.stringify({
         first_name: this.state.first_name,
-        surname: this.state.surname,
+        last_name: this.state.last_name,
+        telephone_number: this.state.telephone_number,
         email: this.state.email,
         password: this.state.password,
-        phone_num: this.state.phone_num,
-        company_name: this.state.company,
+        company_name: this.state.company_name,
         industry: this.state.industry,
+        username: this.state.email.split("@")[0]
       }),
+      
       headers: {
         'Content-Type': 'application/json'
       }
@@ -67,73 +44,76 @@ class RegisterPage extends React.Component {
         return response.json()
       })
       .then((data) => {
-        localStorage.setItem("token", JSON.stringify(data))
+        console.log(data)
+        // localStorage.setItem("token", JSON.stringify(data))
         this.setState({
           first_name: '',
-          surname: '',
-          phone_num: '',
-          companny: '',
-          industry: '',
+          last_name: '',
           email: '',
-          password: ''
+          telephone_number: '',
+          password: '',
+          company_name: '',
+          industry: '',
+          confirm_password: ''
         })
       })
   }
 
-  render(){
-    return(
+  render() {
+    return (
+      
       <div className="RegisterPage container">
         <PageTitle title="Register" />
-        
+
         <Row className="Row justify-content-md-center">
-        <Form className="Form row w-50 mb-4">
-          <Form.Group className="Form-Group">
-            <Form.Label>First name</Form.Label>
-            <Form.Control type="text" placeholder="Name" />
-          </Form.Group>
-            
-          <Form.Group className="mt-2">
-            <Form.Label>Surname</Form.Label>
-            <Form.Control type="text" placeholder="Surname" />
-          </Form.Group>
+          <Form className="Form row w-50 mb-4">
+            <Form.Group className="Form-Group">
+              <Form.Label>First name</Form.Label>
+              <Form.Control type="text" placeholder="Anton" onChange={e => this.setState({ first_name: e.target.value })} />
+            </Form.Group>
 
-          <Form.Group className="mt-2" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email"/>
-          </Form.Group>  
+            <Form.Group className="mt-2">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control type="text" placeholder="Antonov" onChange={e => this.setState({ last_name: e.target.value })} />
+            </Form.Group>
 
-          <Form.Group className="mt-2" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-            <Form.Control className="mt-2" type="password" placeholder="Confrim password" />
-          </Form.Group>
+            <Form.Group className="mt-2" controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="abc@xyz.com" onChange={e => this.setState({ email: e.target.value })} />
+            </Form.Group>
 
-          <Form.Group className="">
-            <Form.Label>Phone number</Form.Label>
-            <Form.Control type="text" placeholder="+(380)" />
-          </Form.Group>
+            <Form.Group className="mt-2" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" onChange={e => this.setState({ password: e.target.value })} />
+              <Form.Control className="mt-2" type="password" placeholder="Confrim password" onChange={e => this.setState({ confirm_password: e.target.value })} />
+            </Form.Group>
 
-          <Form.Group className="">
-            <Form.Label>Company</Form.Label>
-            <Form.Control type="text" placeholder="" />
-          </Form.Group>
+            <Form.Group className="">
+              <Form.Label>Phone number</Form.Label>
+              <Form.Control type="text" placeholder="+(380)" onChange={e => this.setState({ telephone_number: e.target.value })} />
+            </Form.Group>
 
-          <Form.Group className="">
-            <Form.Label>Industry</Form.Label>
-            <Form.Control type="text" placeholder="" />
-          </Form.Group>
+            <Form.Group className="">
+              <Form.Label>Company</Form.Label>
+              <Form.Control type="text" placeholder="" onChange={e => this.setState({ company_name: e.target.value })} />
+            </Form.Group>
 
-          <Form.Group className="mb-2 mt-2" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
+            <Form.Group className="">
+              <Form.Label>Industry</Form.Label>
+              <Form.Control type="text" placeholder="" onChange={e => this.setState({ industry: e.target.value })} />
+            </Form.Group>
 
-          <Button variant="primary">Submit</Button>
+            <Form.Group className="mb-2 mt-2" controlId="formBasicCheckbox">
+              <Form.Check type="checkbox" label="Accept to data policies and collect cookies" />
+            </Form.Group>
 
-        </Form>
+            <Button variant="primary" onClick={this.handleSubmit.bind(this)}>Submit</Button>
+
+          </Form>
         </Row>
 
       </div>
-    )    
+    )
   }
 }
 
