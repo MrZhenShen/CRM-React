@@ -16,14 +16,14 @@ class ProjectList extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('token') !== "{}" && JSON.parse(localStorage.getItem('token')).is_staff === true) {
+    if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === true) {
 
       // fetch(`${this.state.apiLink}/projects/`, {
       fetch("http://127.0.0.1:8000/api/projects/", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token ' + JSON.parse(localStorage.getItem('token')).token
+          'Authorization': 'Token ' + JSON.parse(localStorage.getItem('credentials')).token
         }
       })
         .then((response) => {
@@ -38,7 +38,7 @@ class ProjectList extends React.Component {
 
 
   render() {
-    if (localStorage.getItem('token') !== "{}" && JSON.parse(localStorage.getItem('token')).is_staff === true) {
+    if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === true) {
       return (
         <div className="ProjectList row">
           {

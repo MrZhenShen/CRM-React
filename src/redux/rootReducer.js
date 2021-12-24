@@ -1,7 +1,7 @@
 const initialState = {
-  isAuthenticated: localStorage.getItem('token') !== "{}",
-  isStaff: JSON.parse(localStorage.getItem('token')).is_staff,
-  token: JSON.parse(localStorage.getItem('token')).token,
+  isAuthenticated: localStorage.getItem('credentials') !== "{}",
+  isStaff: JSON.parse(localStorage.getItem('credentials')).is_staff,
+  credentials: JSON.parse(localStorage.getItem('credentials')).token,
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -11,7 +11,7 @@ export default function rootReducer(state = initialState, action) {
         isAuthenticated: state.isAuthenticated = true,
       }
     case 'LOG_OUT':
-      localStorage.setItem("token", JSON.stringify({}))
+      localStorage.setItem("credentials", JSON.stringify({}))
       return {
         isAuthenticated: state.isAuthenticated = false,
         token: state.token = ""

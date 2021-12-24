@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
       })
       .then((data) => {
         this.props.dispatch({type: 'LOG_IN'})
-        localStorage.setItem("token", JSON.stringify(data))
+        localStorage.setItem("credentials", JSON.stringify(data))
         this.setState({
           email: "",
           password: ""

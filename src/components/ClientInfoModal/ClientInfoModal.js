@@ -11,7 +11,7 @@ class ClientInfoModal extends React.Component {
     this.state = {
       hasChange: false,
       apiLink: 'http://127.0.0.1:8000/api',
-      token: JSON.parse(localStorage.getItem('token')).token,
+      token: JSON.parse(localStorage.getItem('credentials')).token,
       first_name:       "",
       last_name:        "",
       email:            "",

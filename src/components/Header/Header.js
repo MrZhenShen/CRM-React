@@ -8,7 +8,7 @@ class Header extends React.Component {
 
   handleSignOut() {
     this.props.dispatch({ type: 'LOG_OUT' })
-    localStorage.setItem("token", JSON.stringify({}))
+    localStorage.setItem("credentials", JSON.stringify({}))
   }
 
   render() {

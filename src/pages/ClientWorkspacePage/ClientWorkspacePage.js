@@ -13,14 +13,14 @@ class ClientWorkspacePage extends React.Component {
       client: {},
       projects: [],
       apiLink: 'http://127.0.0.1:8000/api',
-      token: JSON.parse(localStorage.getItem('token')).token,
-      clientId: JSON.parse(localStorage.getItem('token')).id
+      token: JSON.parse(localStorage.getItem('credentials')).token,
+      clientId: JSON.parse(localStorage.getItem('credentials')).id
     }
   }
 
   componentDidMount() {
 
-    if (localStorage.getItem('token') !== "{}" && JSON.parse(localStorage.getItem('token')).is_staff === false) {
+    if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === false) {
 
       fetch(`${this.state.apiLink}/clients/${this.state.clientId}/`, {
         method: 'GET',
@@ -60,7 +60,7 @@ class ClientWorkspacePage extends React.Component {
   }
 
   render() {
-    if (localStorage.getItem('token') !== "{}" && JSON.parse(localStorage.getItem('token')).is_staff === false) {
+    if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === false) {
       return (
         <div className="ClientWorkspacePage container-fluid">
           <PageTitle title={"Client Workspace"} />
