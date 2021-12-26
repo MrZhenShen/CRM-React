@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
-import Landing from './pages/Landing/Landing'
+import LandingPage from './pages/LandingPage/LandingPage'
 import AdminPanel from './pages/AdminPanel/AdminPanel'
-import Busket from './pages/Busket/Busket'
+import BusketPage from './pages/BusketPage/BusketPage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import ClientWorkspacePage from './pages/ClientWorkspacePage/ClientWorkspacePage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
@@ -18,9 +18,9 @@ function App() {
         <Header />
         <div className="app-container">
           <Routes>
-            <Route exact path="/" element={<Landing />} />
-            <Route path="/landing" element={<Landing />} />
-            <Route path="/busket" element={<Busket />} />
+            <Route exact path="/" element={<LandingPage />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/busket" element={<BusketPage />} />
             <Route path="/admin-panel" element={<AdminPanel />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/client-workspace" element={<ClientWorkspacePage />} />
