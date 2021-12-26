@@ -8,13 +8,24 @@ import ClientProjectItem from '../../components/ClientProjectItem/ClientProjectI
 class ClientProjectList extends React.Component {
 
   render() {
-    return (
-      <Col className="ClientProjectList" lg={9}>
-        {this.props.projects.map(project => {
-          return <ClientProjectItem project={project} key={project.id} />
-        })}
-      </Col>
-    )
+    console.log(this.props.projects.length)
+    if (this.props.projects.length !== 0) {
+      return (
+        <Col className="ClientProjectList" lg={9}>
+          {this.props.projects.map(project => {
+            return <ClientProjectItem project={project} key={project.id} />
+          })}
+        </Col>
+      )
+    } else {
+      return (
+        <Col className="ClientProjectList" lg={9}>
+          <center>
+          <h1>Your do not have any project yet(</h1>
+          </center>
+        </Col>
+      )
+    }
   }
 }
 

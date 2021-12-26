@@ -31,7 +31,6 @@ class ProjectList extends React.Component {
         })
         .then((data) => {
           this.setState({ projects: data })
-          console.log(data)
         })
     }
   }
@@ -42,9 +41,9 @@ class ProjectList extends React.Component {
       return (
         <div className="ProjectList row">
           {
-            this.state.projects.map((el) =>
-              <ProjectItem key={el.id} project={el} />
-            )
+            this.state.projects.length > 0
+              ?this.state.projects.map((el) => <ProjectItem key={el.id} project={el} />)
+              : <center>There are no projects ordered</center>
           }
         </div>
       )
