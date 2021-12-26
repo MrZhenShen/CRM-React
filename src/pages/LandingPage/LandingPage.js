@@ -1,7 +1,9 @@
 import React from 'react';
-import './Landing.scss';
+import './LandingPage.scss';
 
-class Landing extends React.Component {
+import { connect } from 'react-redux'
+
+class LandingPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -19,6 +21,13 @@ class Landing extends React.Component {
       .then((data) => {
         this.setState({ goods: data })
       })
+  }
+
+  addToCard(good) {
+    let goodToStorage = JSON.parse(localStorage.getItem("cart"))
+    goodToStorage.unshift(good)
+    localStorage.setItem("cart", JSON.stringify(goodToStorage))
+    this.props.dispatch({type: 'SET_CART', cart: good})
   }
 
   render() {
@@ -39,7 +48,7 @@ class Landing extends React.Component {
                     <h5 className="card-title">{el.name}</h5>
                     <p className="card-text">{el.description}</p>
                     <h6>{el.pricing}</h6>
-                    <button className="btn btn-primary">Order</button>
+                    <button className="btn btn-primary" onClick={this.addToCard.bind(this, el)}>Order</button>
                   </div>
                 </div>
               </div>
@@ -52,4 +61,12 @@ class Landing extends React.Component {
   }
 }
 
-export default Landing;
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  }
+}
+
+export default connect(mapDispatchToProps)(LandingPage);
