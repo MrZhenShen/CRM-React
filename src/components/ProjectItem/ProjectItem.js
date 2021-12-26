@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Dropdown, Button } from 'react-bootstrap';
 
-import ClientInfoModal from '../../components/ClientInfoModal/ClientInfoModal'
+import ProjectAboutClientModal from '../../components/ProjectAboutClientModal/ProjectAboutClientModal'
 
 import './ProjectItem.scss';
 
@@ -55,7 +55,7 @@ const ProjectItem = (props) => {
       </div>
 
 
-      <ClientInfoModal onHide={handleClose} show={show} client={el.Client} />
+      <ProjectAboutClientModal onHide={handleClose} show={show} client={el.Client} />
     </div>
   )
 
