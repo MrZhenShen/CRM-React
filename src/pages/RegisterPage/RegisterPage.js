@@ -39,6 +39,7 @@ class RegisterPage extends React.Component {
       })
       .then((data) => {
         this.props.dispatch({ type: 'LOG_IN' })
+        this.props.dispatch({ type: 'IS_NOT_STAFF' })
         localStorage.setItem("credentials", JSON.stringify(data))
       })
   }

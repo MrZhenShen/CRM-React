@@ -3,13 +3,7 @@ import './Header.scss';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-
 class Header extends React.Component {
-
-  handleSignOut() {
-    this.props.dispatch({ type: 'LOG_OUT' })
-    localStorage.setItem("credentials", JSON.stringify({}))
-  }
 
   render() {
     return (
@@ -20,18 +14,11 @@ class Header extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
-              <NavLink to='/landing' className="navbar-link ms-4">Home</NavLink>
-              <NavLink to='/busket' className="navbar-link ms-4" >Busket</NavLink>
-              <NavLink to='/admin-panel' className="navbar-link ms-4">Admin Panel</NavLink>
-              <NavLink to='/client-workspace' className="navbar-link ms-4">Client workspace</NavLink>
-              {
-                !this.props.isAuthenticated
-                  ? <NavLink to='/login' className="navbar-link ms-4">Log In</NavLink>
-                  : <NavLink to='/landing' className="navbar-link ms-4" onClick={() => this.props.dispatch({ type: 'LOG_OUT' })}>Sign out</NavLink>
-              }
-              <NavLink to='/register' className="navbar-link ms-4">Register</NavLink>
-            </div>
+            {
+              this.props.isAuthenticated || this.props.isAuthenticated === undefined 
+                ? <IsAuthHeader isStaff={this.props.isStaff} dispatch={this.props.dispatch}/>
+                : <IsNotAuthHeader />
+            }
           </div>
         </div>
       </nav>
@@ -39,15 +26,42 @@ class Header extends React.Component {
   }
 }
 
+function IsAuthHeader(props) {
+  return (
+    <div className="navbar-nav">
+      <NavLink to='/landing' className="navbar-link ms-4">Home</NavLink>
+      <NavLink to='/busket' className="navbar-link ms-4" >Busket</NavLink>
+      {
+        props.isStaff
+          ? <NavLink to='/admin-panel' className="navbar-link ms-4">Admin Panel</NavLink>
+          : <NavLink to='/client-workspace' className="navbar-link ms-4">Client workspace</NavLink>
+      }
+      <NavLink to='/landing' className="navbar-link ms-4" onClick={() => props.dispatch({ type: 'LOG_OUT' })}>Sign out</NavLink>
+    </div>
+  )
+}
+
+function IsNotAuthHeader() {
+  return (
+    <div className="navbar-nav">
+      <NavLink to='/landing' className="navbar-link ms-4">Home</NavLink>
+      <NavLink to='/busket' className="navbar-link ms-4" >Busket</NavLink>
+      <NavLink to='/login' className="navbar-link ms-4">Log In</NavLink>
+      <NavLink to='/register' className="navbar-link ms-4">Register</NavLink>
+    </div>
+  )
+}
+
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.isAuthenticated
+    isAuthenticated: state.isAuthenticated,
+    isStaff: state.isStaff
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch
+    dispatch,
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './LoginPage.scss';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import { Form, Button } from 'react-bootstrap';
 
@@ -33,12 +33,15 @@ class LoginPage extends React.Component {
         return response.json()
       })
       .then((data) => {
-        this.props.dispatch({type: 'LOG_IN'})
-        localStorage.setItem("credentials", JSON.stringify(data))
-        this.setState({
-          email: "",
-          password: ""
-        })
+        if (data.error !== "Wrong Credentials") {
+          this.props.dispatch({ type: 'LOG_IN' })
+          data.is_staff ? this.props.dispatch({ type: 'IS_STAFF' }) : this.props.dispatch({ type: 'IS_NOT_STAFF' })
+          localStorage.setItem("credentials", JSON.stringify(data))
+          this.setState({
+            email: "",
+            password: ""
+          })
+        }
       })
   }
 
@@ -64,7 +67,7 @@ class LoginPage extends React.Component {
           </Form.Group>
           <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
             Submit
-          </Button> 
+          </Button>
         </Form>
       </div>
     )
@@ -73,7 +76,7 @@ class LoginPage extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch
+    dispatch,
   }
 }
 
