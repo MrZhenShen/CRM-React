@@ -26,13 +26,12 @@ class LandingPage extends React.Component {
   addToCard(good) {
     let goodToStorage = JSON.parse(localStorage.getItem("cart"))
     goodToStorage.unshift(good)
-    localStorage.setItem("cart", JSON.stringify(goodToStorage))
-    this.props.dispatch({type: 'SET_CART', cart: good})
+    this.props.dispatch({type: 'SET_CART', cart: goodToStorage})
   }
 
   render() {
     return (
-      <div className="Landing" >
+      <div className="LandingPage" >
         <center><h2>Landing Component</h2></center>
         <div className='container'>
           <div className="row">
