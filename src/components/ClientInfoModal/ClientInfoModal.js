@@ -68,9 +68,7 @@ class ClientInfoModal extends React.Component {
       .then((response) => {
         return response.json()
       })
-      .then((data) => {
-        console.log(data.first_name)
-      })
+      .then((data) => {})
   }
 
   render() {
