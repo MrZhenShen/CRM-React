@@ -1,28 +1,28 @@
 const initialState = {
-  isAuthenticated: localStorage.getItem('credentials') !== "{}",
+  isAuthenticated: localStorage.getItem('credentials') !== "{}" && localStorage.getItem('credentials').error !== "Wrong Credentials",
   isStaff: JSON.parse(localStorage.getItem('credentials')).is_staff,
-  credentials: JSON.parse(localStorage.getItem('credentials')).token,
+  token: JSON.parse(localStorage.getItem('credentials')).token
 }
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case 'LOG_IN':
       return {
-        isAuthenticated: state.isAuthenticated = true,
+        isAuthenticated: true
       }
     case 'LOG_OUT':
       localStorage.setItem("credentials", JSON.stringify({}))
       return {
-        isAuthenticated: state.isAuthenticated = false,
-        token: state.token = ""
+        isAuthenticated: false,
+        token: ""
       }
     case 'IS_STAFF':
       return {
-        isStaff: state.isStaff = true
+        isStaff: true
       }
     case 'IS_NOT_STAFF':
       return {
-        isStaff: state.isStaff = false
+        isStaff: false
       }
     case 'ADD_TOKEN':
       return {
