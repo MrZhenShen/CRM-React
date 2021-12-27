@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Dropdown, Button } from 'react-bootstrap';
 
@@ -6,60 +6,88 @@ import ProjectAboutClientModal from '../../components/ProjectAboutClientModal/Pr
 
 import './ProjectItem.scss';
 
-const ProjectItem = (props) => {
+class ProjectItem extends React.Component {
 
-  const [show, setShow] = useState(false);
+  constructor(props) {
+    super(props);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    this.state = {
+      show: false,
+      status: this.props.project.Status,
+      apiLink: 'http://localhost:8000/api'
+    }
+  }
 
-  const el = props.project
+  handleChangeStatus(status) {
+    this.setState({
+      status: status
+    })
 
-  return (
-    <div className="ProjectItem col-12" key={el.id}>
+    fetch(`${this.state.apiLink}/projects/${this.props.project.id}/`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        Status: status.id
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + JSON.parse(localStorage.getItem('credentials')).token
+      }
+    })
+      .then((response) => response.json())
+      .then(data => console.log(data))
+  }
 
-      <div className="project-info">
-        <img src={el.Good.example_image} width="100" alt="" />
-        <div className="card-body">
-          <h5 className="card-title">{el.Good.name}</h5>
-          <p className="card-text">{el.Good.description}</p>
-          <h6>{el.Good.pricing}</h6>
+  render() {
+    const el = this.props.project
+
+    return (
+      <div className="ProjectItem col-12" key={el.id} >
+
+        <div className="project-info">
+          <img src={el.Good.example_image} width="100" alt="" />
+          <div className="card-body">
+            <h5 className="card-title">{el.Good.name}</h5>
+            <p className="card-text">{el.Good.description}</p>
+            <h6>{el.Good.pricing}</h6>
+          </div>
         </div>
+
+
+        <div className="project-info">
+          <h5 className="card-title">{el.Client.first_name} {el.Client.last_name}</h5>
+          <p className="card-text">id: {el.Client.id}</p>
+          <Button variant="primary" onClick={() => this.setState({ show: true })}>
+            View details
+          </Button>
+
+          <Dropdown className="w-100">
+            <Dropdown.Toggle variant={this.state.status.color} id="dropdown-basic">
+              {this.state.status.title}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {
+                this.props.statuses.map((status) =>
+                  <Dropdown.Item variant={status.color} key={status.id} onClick={() => this.handleChangeStatus(status)}>{status.title}</Dropdown.Item>
+                )
+              }
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+
+
+        <div className="project-info">
+          <h5 className="card-title">Client comment</h5>
+          <p className="card-text">{el.client_comment}</p>
+        </div>
+
+
+        <ProjectAboutClientModal onHide={() => this.setState({ show: false })} show={this.state.show} client={el.Client} />
       </div>
+    )
+  }
 
-
-      <div className="project-info">
-        <h5 className="card-title">{el.Client.first_name} {el.Client.last_name}</h5>
-        <p className="card-text">id: {el.Client.id}</p>
-        <Button variant="primary" onClick={handleShow}>
-          View details
-        </Button>
-
-        <Dropdown>
-          <Dropdown.Toggle variant={el.Status.color} id="dropdown-basic">
-            {el.Status.title}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-
-
-      <div className="project-info">
-        <h5 className="card-title">Client comment</h5>
-        <p className="card-text">{el.client_comment}</p>
-      </div>
-
-
-      <ProjectAboutClientModal onHide={handleClose} show={show} client={el.Client} />
-    </div>
-  )
-
-};
+}
 
 
 export default ProjectItem;

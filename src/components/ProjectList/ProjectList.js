@@ -11,6 +11,7 @@ class ProjectList extends React.Component {
 
     this.state = {
       projects: [],
+      statuses: [],
       apiLink: 'http://localhost:8000/api'
     }
   }
@@ -18,7 +19,6 @@ class ProjectList extends React.Component {
   componentDidMount() {
     if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === true) {
 
-      // fetch(`${this.state.apiLink}/projects/`, {
       fetch("http://127.0.0.1:8000/api/projects/", {
         method: 'GET',
         headers: {
@@ -32,6 +32,16 @@ class ProjectList extends React.Component {
         .then((data) => {
           this.setState({ projects: data })
         })
+
+      fetch("http://127.0.0.1:8000/api/statuses/", {
+        method: 'GET'
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+          this.setState({ statuses: data })
+        })
     }
   }
 
@@ -42,7 +52,7 @@ class ProjectList extends React.Component {
         <div className="ProjectList row">
           {
             this.state.projects.length > 0
-              ?this.state.projects.map((el) => <ProjectItem key={el.id} project={el} />)
+              ? this.state.projects.map((el) => <ProjectItem key={el.id} project={el} statuses={this.state.statuses} />)
               : <center>There are no projects ordered</center>
           }
         </div>
