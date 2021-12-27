@@ -12,39 +12,34 @@ class BusketSummary extends React.Component {
     this.state = {
       comments: JSON.parse(localStorage.getItem('comments')),
       apiLink: 'http://localhost:8000/api',
-      clientID: JSON.parse(localStorage.getItem('credentials')).id
+      clientID: JSON.parse(localStorage.getItem('credentials')).id,
+      token: JSON.parse(localStorage.getItem('credentials')).token
     }
   }
 
   handleOrder() {
-    this.props.order.map((good, i) => {
-      fetch(`${this.state.apiLink}/projects-create/`, {
-        method: 'POST',
-        body: JSON.stringify({
-          Good: good.id,
-          Client: this.state.clientID,
-          client_comment: JSON.parse(localStorage.getItem('comments'))[i],
-          Status: 1
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    if (localStorage.getItem('credentials') !== "{}") {
+      this.props.order.map((good, i) => {
+        fetch(`${this.state.apiLink}/projects-create/`, {
+          method: 'POST',
+          body: JSON.stringify({
+            Good: good.id,
+            Client: this.state.clientID,
+            client_comment: JSON.parse(localStorage.getItem('comments'))[i],
+            Status: 1
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + this.state.token
+          }
+        })
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((data) => {
-          console.log(data)
-          // if (data.error !== "Wrong Credentials") {
-          //   this.props.dispatch({ type: 'LOG_IN' })
-          //   data.is_staff ? this.props.dispatch({ type: 'IS_STAFF' }) : this.props.dispatch({ type: 'IS_NOT_STAFF' })
-          //   localStorage.setItem("credentials", JSON.stringify(data))
-          //   this.setState({
-          //     email: "",
-          //     password: ""
-          //   })
-        })
-    })
+      localStorage.setItem('comments', JSON.stringify([]))
+      localStorage.setItem('cart', JSON.stringify([]))
+    }
+    else {
+      alert('You should Sign In or Sign Up to order')
+    }
   }
 
   render() {
