@@ -1,10 +1,12 @@
 import React from 'react';
 import './PageTitle.scss';
 
+import { Col } from 'react-bootstrap'
+
 const PageTitle = (props) => (
-  <div className="PageTitle">
+  <Col>
     <center><h2 className="mb-4 mt-4">{props.title}</h2></center>
-  </div>
+  </Col>
 );
 
 export default PageTitle;
