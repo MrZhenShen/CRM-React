@@ -26,7 +26,7 @@ class LandingPage extends React.Component {
   addToCard(good) {
     let goodToStorage = JSON.parse(localStorage.getItem("cart"))
     goodToStorage.unshift(good)
-    this.props.dispatch({ type: 'SET_CART', cart: goodToStorage })
+    localStorage.setItem('cart', JSON.stringify(goodToStorage))
 
     let commentsStorage = JSON.parse(localStorage.getItem("comments"))
     commentsStorage.unshift("")
