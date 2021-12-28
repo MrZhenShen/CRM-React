@@ -5,7 +5,6 @@ import { Container, Row } from 'react-bootstrap'
 
 import PageTitle from '../../components/PageTitle/PageTitle'
 import BusketList from '../../components/BusketList/BusketList'
-import BusketSummary from '../../components/BusketSummary/BusketSummary'
 
 class Busket extends React.Component {
 
@@ -15,7 +14,6 @@ class Busket extends React.Component {
         <Row>
           <PageTitle title="Busket" />
           <BusketList />
-          <BusketSummary />
         </Row>
       </Container>
     )
