@@ -28,7 +28,7 @@ class BusketList extends React.Component {
   handleOrder() {
     if (localStorage.getItem('credentials') !== "{}") {
       this.state.orders.map((good, i) => {
-        fetch(`${this.state.apiLink}/projects-create/`, {
+        fetch(`${this.state.apiLink}/project-create/`, {
           method: 'POST',
           body: JSON.stringify({
             Good: good.id,

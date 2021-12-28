@@ -36,7 +36,7 @@ class ClientWorkspacePage extends React.Component {
           this.setState({ client: data })
         })
 
-      fetch(`${this.state.apiLink}/client-projects/${this.state.clientId}/`, {
+      fetch(`${this.state.apiLink}/projects-client/${this.state.clientId}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

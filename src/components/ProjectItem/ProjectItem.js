@@ -23,7 +23,7 @@ class ProjectItem extends React.Component {
       status: status
     })
 
-    fetch(`${this.state.apiLink}/projects/${this.props.project.id}/`, {
+    fetch(`${this.state.apiLink}/project-edit/${this.props.project.id}/`, {
       method: 'PATCH',
       body: JSON.stringify({
         Status: status.id
@@ -47,7 +47,7 @@ class ProjectItem extends React.Component {
           <div className="card-body">
             <h5 className="card-title">{el.Good.name}</h5>
             <p className="card-text">{el.Good.description}</p>
-            <h6>{el.Good.pricing}</h6>
+            <h6>{el.Good.pricing}$</h6>
           </div>
         </div>
 
