@@ -8,7 +8,6 @@ import ClientProjectItem from '../../components/ClientProjectItem/ClientProjectI
 class ClientProjectList extends React.Component {
 
   render() {
-    console.log(this.props.projects.length)
     if (this.props.projects.length !== 0) {
       return (
         <Col className="ClientProjectList" lg={9}>
