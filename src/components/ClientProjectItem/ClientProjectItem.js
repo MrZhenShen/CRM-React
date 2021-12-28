@@ -1,9 +1,9 @@
 import React from 'react'
 import './ClientProjectItem.scss'
 
-import {  Card, Button } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
-class ClientProjectList extends React.Component {
+class ClientProjectItem extends React.Component {
 
   render() {
     return (
@@ -15,11 +15,11 @@ class ClientProjectList extends React.Component {
               <b>Your comment</b><br/>
               {this.props.project.client_comment}
             </Card.Text>
-            <Button className="status" style={{width: '100%'}}variant={this.props.project.Status.color}>{this.props.project.Status.title}</Button>
+            <Button className="status" style={{width: '100%'}} variant={this.props.project.Status.color}>{this.props.project.Status.title}</Button>
           </Card.Body>
         </Card>
     )
   }
 }
 
-export default ClientProjectList;
+export default ClientProjectItem;

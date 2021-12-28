@@ -1,7 +1,9 @@
 import React from 'react';
 import './LandingPage.scss';
 
-import { Container, Row } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+
+import PageTitle from '../../components/PageTitle/PageTitle'
 
 class LandingPage extends React.Component {
 
@@ -36,23 +38,22 @@ class LandingPage extends React.Component {
   render() {
     return (
       <Container className="LandingPage" >
+        <PageTitle title="Goods" />
         <Row>
-          <div className="col-12">
-            <h3>Goods</h3>
-          </div>
-
           {this.state.goods.map(el =>
-            <div className="col-4" key={el.id}>
-              <div className="card w-18">
-                <img src={el.example_image} alt="" />
-                <div className="card-body">
-                  <h5 className="card-title">{el.name}</h5>
-                  <p className="card-text">{el.description}</p>
-                  <h6>{el.pricing}</h6>
-                  <button className="btn btn-primary" onClick={this.addToCard.bind(this, el)}>Order</button>
-                </div>
-              </div>
-            </div>
+            <Col lg={4} key={el.id}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img src={el.example_image} alt="" />
+                <Card.Body >
+                  <Card.Title>{el.name}</Card.Title>
+                  <Card.Text>
+                    <p className="card-text">{el.description}</p>
+                    <h6>{el.pricing}</h6>
+                  </Card.Text>
+                  <Button variant="warning" style={{width: '100%'}} onClick={this.addToCard.bind(this, el)}>Order</Button>
+                </Card.Body>
+              </Card>
+            </Col>
           )}
         </Row>
       </Container>
