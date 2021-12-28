@@ -1,6 +1,5 @@
 import React from 'react';
 import './BusketItem.scss';
-import { connect } from 'react-redux'
 
 import { Col, Card, Button } from 'react-bootstrap'
 
@@ -22,8 +21,7 @@ class BusketItem extends React.Component {
   }
 
   handleRemoveClick() {
-    this.props.order.splice(this.props.id, 1)
-    this.props.dispatch({ type: 'SET_CART', cart: this.props.order })
+    this.props.onRemove(this.props.id)
 
     let currentComments = JSON.parse(localStorage.getItem('comments'))
     currentComments.splice(this.props.id, 1)
@@ -53,16 +51,4 @@ class BusketItem extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    order: state.order
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BusketItem);
+export default BusketItem;
