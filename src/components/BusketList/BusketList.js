@@ -41,6 +41,7 @@ class BusketList extends React.Component {
             'Authorization': 'Token ' + this.state.token
           }
         })
+        return null
       })
       localStorage.setItem('comments', JSON.stringify([]))
       localStorage.setItem('cart', JSON.stringify([]))
@@ -49,6 +50,7 @@ class BusketList extends React.Component {
       })
     }
     else {
+
       alert('You should Sign In or Sign Up to order')
     }
   }
