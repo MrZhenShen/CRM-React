@@ -4,82 +4,31 @@ import './ClientWorkspacePage.scss';
 import PageTitle from '../../components/PageTitle/PageTitle'
 import ClientWorkspace from '../../components/ClientWorkspace/ClientWorkspace'
 
+import { Container, Row, Col } from 'react-bootstrap'
+
 class ClientWorkspacePage extends React.Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      client: {},
-      projects: [],
-      apiLink: 'http://127.0.0.1:8000/api',
-      token: JSON.parse(localStorage.getItem('credentials')).token,
-      clientId: JSON.parse(localStorage.getItem('credentials')).id
-    }
-  }
-
-  componentDidMount() {
-
-    if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === false) {
-
-      fetch(`${this.state.apiLink}/clients/${this.state.clientId}/`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token
-        }
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((data) => {
-          this.setState({ client: data })
-        })
-
-      fetch(`${this.state.apiLink}/projects-client/${this.state.clientId}/`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token
-        }
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((data) => {
-          this.setState({ projects: data })
-        })
-
-    }
-    else {
-      this.setState({
-        client: {},
-        projects: []
-      })
-    }
-  }
 
   render() {
     if (localStorage.getItem('credentials') !== "{}" && JSON.parse(localStorage.getItem('credentials')).is_staff === false) {
       return (
-        <div className="ClientWorkspacePage container-fluid">
+        <Container fluid className="ClientWorkspacePage">
           <PageTitle title={"Client Workspace"} />
-          <ClientWorkspace client={this.state.client} projects={this.state.projects} />
-        </div>
+          <ClientWorkspace />
+        </Container>
       )
     } else {
       return (
-        <div className="ClientWorkspacePage" >
-          <div className="container">
-            <div className="row">
+        <Container className="ClientWorkspacePage" >
+          <Row>
+            <PageTitle title={"Issue"} />
+            <Col lg={12}>
               <ul>
-              <h2>Issue due to:</h2>
-              <li>You are not authenticated</li>
-              <li>You are not client</li>
-            </ul>
-            </div>
-          </div>
-        </div>
+                <li>You are not authenticated</li>
+                <li>You are not client</li>
+              </ul>
+            </Col>
+          </Row>
+        </Container>
       )
     }
   }

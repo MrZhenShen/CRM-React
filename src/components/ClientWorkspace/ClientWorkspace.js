@@ -8,8 +8,8 @@ import ClientProjectList from '../ClientProjectList/ClientProjectList';
 
 const ClientWorkspace = (props) => (
   <Row className="ClientWorkspace">
-    <ClientProfile client={props.client} />
-    <ClientProjectList projects={props.projects} />
+    <ClientProfile />
+    <ClientProjectList />
   </Row>
 );
 
