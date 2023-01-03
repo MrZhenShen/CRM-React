@@ -45,7 +45,7 @@ class ClientProjectList extends React.Component {
   }
 
   render() {
-    if (this.state.projects.length !== 0) {
+    if (this.state.projects.length !== undefined & this.state.projects.length !== 0) {
       return (
         <Col className="ClientProjectList" lg={9}>
           {this.state.projects.map(project => {
