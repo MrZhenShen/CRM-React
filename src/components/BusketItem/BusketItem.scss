@@ -1,0 +1,25 @@
+.BusketItem {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 30px;
+  border-bottom: 1px solid lightgray;
+
+  .card {
+    margin: 0px 20px !important;
+    padding: 0px !important;
+  }
+
+  .comment-order {
+    width: 100%;
+
+    textarea {
+      border: 0px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.171);
+      border-radius: 30px;
+    }
+  }
+}

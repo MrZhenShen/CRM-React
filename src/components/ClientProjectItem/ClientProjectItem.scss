@@ -1,0 +1,19 @@
+.card {
+  box-shadow: 5px 5px 15px -10px #0000004d;
+  margin: 20px;
+  border: 0px;
+
+  display: flex;
+  justify-content: space-between;
+
+  transition: 0.3s;
+
+  &:hover {
+    box-shadow: 5px 5px 20px -10px #000000;
+  }
+  .status {
+    &:hover {
+      cursor:default;
+    }
+  }
+}
