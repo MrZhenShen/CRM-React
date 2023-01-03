@@ -14,8 +14,8 @@ class BusketList extends React.Component {
       orders: [],
       comments: JSON.parse(localStorage.getItem('comments')),
       apiLink: 'http://localhost:8000/api',
-      clientID: JSON.parse(localStorage.getItem('credentials')).id,
-      token: JSON.parse(localStorage.getItem('credentials')).token
+      clientID: localStorage.getItem('credentials') ? JSON.parse(localStorage.getItem('credentials')).id : 0,
+      token: localStorage.getItem('credentials') ? JSON.parse(localStorage.getItem('credentials')).token : 0
     }
   }
 
